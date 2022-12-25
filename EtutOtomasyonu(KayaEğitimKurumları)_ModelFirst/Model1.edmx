@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="KullanicilarSet" EntityType="Model1.Store.KullanicilarSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EtutSalonuSet" EntityType="Model1.Store.EtutSalonuSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SayisalEtutSalonuSet" EntityType="Model1.Store.SayisalEtutSalonuSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SozelEtutSalonuSet" EntityType="Model1.Store.SozelEtutSalonuSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BilisimEtutSalonuSet" EntityType="Model1.Store.BilisimEtutSalonuSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="KullanicilarEtutSalonu" Association="Model1.Store.KullanicilarEtutSalonu">
+      <End Role="Kullanicilar" EntitySet="KullanicilarSet" />
+      <End Role="EtutSalonu" EntitySet="EtutSalonuSet" />
+    </AssociationSet>
+    <AssociationSet Name="EtutSalonuSayisalEtutSalonu" Association="Model1.Store.EtutSalonuSayisalEtutSalonu">
+      <End Role="EtutSalonu" EntitySet="EtutSalonuSet" />
+      <End Role="SayisalEtutSalonu" EntitySet="SayisalEtutSalonuSet" />
+    </AssociationSet>
+    <AssociationSet Name="EtutSalonuSozelEtutSalonu" Association="Model1.Store.EtutSalonuSozelEtutSalonu">
+      <End Role="EtutSalonu" EntitySet="EtutSalonuSet" />
+      <End Role="SozelEtutSalonu" EntitySet="SozelEtutSalonuSet" />
+    </AssociationSet>
+    <AssociationSet Name="EtutSalonuBilisimEtutSalonu" Association="Model1.Store.EtutSalonuBilisimEtutSalonu">
+      <End Role="EtutSalonu" EntitySet="EtutSalonuSet" />
+      <End Role="BilisimEtutSalonu" EntitySet="BilisimEtutSalonuSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="KullanicilarSet">
+    <Key>
+      <PropertyRef Name="KullaniciNo" />
+    </Key>
+    <Property Name="KullaniciNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KullaniciAdi" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Sifre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Mail" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telefon" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Adres" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EtutSalonuSet">
+    <Key>
+      <PropertyRef Name="SalonNo" />
+    </Key>
+    <Property Name="SalonNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SalonAdi" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="KullaniciNo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="KullanicilarKullaniciNo" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SayisalEtutSalonuSet">
+    <Key>
+      <PropertyRef Name="SaySalonNo" />
+    </Key>
+    <Property Name="SaySalonNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tarih" Type="int" Nullable="false" />
+    <Property Name="Saat" Type="int" Nullable="false" />
+    <Property Name="SalonNo" Type="int" Nullable="false" />
+    <Property Name="EtutSalonuSalonNo" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SozelEtutSalonuSet">
+    <Key>
+      <PropertyRef Name="SozSalonNo" />
+    </Key>
+    <Property Name="SozSalonNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tarih" Type="int" Nullable="false" />
+    <Property Name="Saat" Type="int" Nullable="false" />
+    <Property Name="SalonNo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EtutSalonuSalonNo" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BilisimEtutSalonuSet">
+    <Key>
+      <PropertyRef Name="BilSalonNo" />
+    </Key>
+    <Property Name="BilSalonNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tarih" Type="int" Nullable="false" />
+    <Property Name="Saat" Type="int" Nullable="false" />
+    <Property Name="SalonNo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EtutSalonuSalonNo" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="KullanicilarEtutSalonu">
+    <End Role="Kullanicilar" Type="Model1.Store.KullanicilarSet" Multiplicity="1" />
+    <End Role="EtutSalonu" Type="Model1.Store.EtutSalonuSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciNo" />
+      </Principal>
+      <Dependent Role="EtutSalonu">
+        <PropertyRef Name="KullanicilarKullaniciNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EtutSalonuSayisalEtutSalonu">
+    <End Role="EtutSalonu" Type="Model1.Store.EtutSalonuSet" Multiplicity="1" />
+    <End Role="SayisalEtutSalonu" Type="Model1.Store.SayisalEtutSalonuSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EtutSalonu">
+        <PropertyRef Name="SalonNo" />
+      </Principal>
+      <Dependent Role="SayisalEtutSalonu">
+        <PropertyRef Name="EtutSalonuSalonNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EtutSalonuSozelEtutSalonu">
+    <End Role="EtutSalonu" Type="Model1.Store.EtutSalonuSet" Multiplicity="1" />
+    <End Role="SozelEtutSalonu" Type="Model1.Store.SozelEtutSalonuSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EtutSalonu">
+        <PropertyRef Name="SalonNo" />
+      </Principal>
+      <Dependent Role="SozelEtutSalonu">
+        <PropertyRef Name="EtutSalonuSalonNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EtutSalonuBilisimEtutSalonu">
+    <End Role="EtutSalonu" Type="Model1.Store.EtutSalonuSet" Multiplicity="1" />
+    <End Role="BilisimEtutSalonu" Type="Model1.Store.BilisimEtutSalonuSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EtutSalonu">
+        <PropertyRef Name="SalonNo" />
+      </Principal>
+      <Dependent Role="BilisimEtutSalonu">
+        <PropertyRef Name="EtutSalonuSalonNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="KullanicilarSet" EntityType="Model1.Kullanicilar" />
+          <EntitySet Name="EtutSalonuSet" EntityType="Model1.EtutSalonu" />
+          <AssociationSet Name="KullanicilarEtutSalonu" Association="Model1.KullanicilarEtutSalonu">
+            <End Role="Kullanicilar" EntitySet="KullanicilarSet" />
+            <End Role="EtutSalonu" EntitySet="EtutSalonuSet" />
+          </AssociationSet>
+          <EntitySet Name="SayisalEtutSalonuSet" EntityType="Model1.SayisalEtutSalonu" />
+          <AssociationSet Name="EtutSalonuSayisalEtutSalonu" Association="Model1.EtutSalonuSayisalEtutSalonu">
+            <End Role="EtutSalonu" EntitySet="EtutSalonuSet" />
+            <End Role="SayisalEtutSalonu" EntitySet="SayisalEtutSalonuSet" />
+          </AssociationSet>
+          <EntitySet Name="SozelEtutSalonuSet" EntityType="Model1.SozelEtutSalonu" />
+          <AssociationSet Name="EtutSalonuSozelEtutSalonu" Association="Model1.EtutSalonuSozelEtutSalonu">
+            <End Role="EtutSalonu" EntitySet="EtutSalonuSet" />
+            <End Role="SozelEtutSalonu" EntitySet="SozelEtutSalonuSet" />
+          </AssociationSet>
+          <EntitySet Name="BilisimEtutSalonuSet" EntityType="Model1.BilisimEtutSalonu" />
+          <AssociationSet Name="EtutSalonuBilisimEtutSalonu" Association="Model1.EtutSalonuBilisimEtutSalonu">
+            <End Role="EtutSalonu" EntitySet="EtutSalonuSet" />
+            <End Role="BilisimEtutSalonu" EntitySet="BilisimEtutSalonuSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Kullanicilar">
+          <Key>
+            <PropertyRef Name="KullaniciNo" />
+          </Key>
+          <Property Name="KullaniciNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciAdi" Type="String" Nullable="false" />
+          <Property Name="Sifre" Type="String" Nullable="false" />
+          <Property Name="Mail" Type="String" Nullable="false" />
+          <Property Name="Telefon" Type="String" Nullable="false" />
+          <Property Name="Adres" Type="String" Nullable="false" />
+          <NavigationProperty Name="EtutSalonu" Relationship="Model1.KullanicilarEtutSalonu" FromRole="Kullanicilar" ToRole="EtutSalonu" />
+        </EntityType>
+        <EntityType Name="EtutSalonu">
+          <Key>
+            <PropertyRef Name="SalonNo" />
+          </Key>
+          <Property Name="SalonNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalonAdi" Type="String" Nullable="false" />
+          <Property Name="KullaniciNo" Type="String" Nullable="false" />
+          <NavigationProperty Name="Kullanicilar" Relationship="Model1.KullanicilarEtutSalonu" FromRole="EtutSalonu" ToRole="Kullanicilar" />
+          <Property Name="KullanicilarKullaniciNo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SayisalEtutSalonu" Relationship="Model1.EtutSalonuSayisalEtutSalonu" FromRole="EtutSalonu" ToRole="SayisalEtutSalonu" />
+          <NavigationProperty Name="SozelEtutSalonu" Relationship="Model1.EtutSalonuSozelEtutSalonu" FromRole="EtutSalonu" ToRole="SozelEtutSalonu" />
+          <NavigationProperty Name="BilisimEtutSalonu" Relationship="Model1.EtutSalonuBilisimEtutSalonu" FromRole="EtutSalonu" ToRole="BilisimEtutSalonu" />
+        </EntityType>
+        <Association Name="KullanicilarEtutSalonu">
+          <End Type="Model1.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+          <End Type="Model1.EtutSalonu" Role="EtutSalonu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="KullaniciNo" />
+            </Principal>
+            <Dependent Role="EtutSalonu">
+              <PropertyRef Name="KullanicilarKullaniciNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SayisalEtutSalonu">
+          <Key>
+            <PropertyRef Name="SaySalonNo" />
+          </Key>
+          <Property Name="SaySalonNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tarih" Type="Int32" Nullable="false" />
+          <Property Name="Saat" Type="Int32" Nullable="false" />
+          <Property Name="SalonNo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EtutSalonu" Relationship="Model1.EtutSalonuSayisalEtutSalonu" FromRole="SayisalEtutSalonu" ToRole="EtutSalonu" />
+          <Property Name="EtutSalonuSalonNo" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="EtutSalonuSayisalEtutSalonu">
+          <End Type="Model1.EtutSalonu" Role="EtutSalonu" Multiplicity="1" />
+          <End Type="Model1.SayisalEtutSalonu" Role="SayisalEtutSalonu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EtutSalonu">
+              <PropertyRef Name="SalonNo" />
+            </Principal>
+            <Dependent Role="SayisalEtutSalonu">
+              <PropertyRef Name="EtutSalonuSalonNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SozelEtutSalonu">
+          <Key>
+            <PropertyRef Name="SozSalonNo" />
+          </Key>
+          <Property Name="SozSalonNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tarih" Type="Int32" Nullable="false" />
+          <Property Name="Saat" Type="Int32" Nullable="false" />
+          <Property Name="SalonNo" Type="String" Nullable="false" />
+          <NavigationProperty Name="EtutSalonu" Relationship="Model1.EtutSalonuSozelEtutSalonu" FromRole="SozelEtutSalonu" ToRole="EtutSalonu" />
+          <Property Name="EtutSalonuSalonNo" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="EtutSalonuSozelEtutSalonu">
+          <End Type="Model1.EtutSalonu" Role="EtutSalonu" Multiplicity="1" />
+          <End Type="Model1.SozelEtutSalonu" Role="SozelEtutSalonu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EtutSalonu">
+              <PropertyRef Name="SalonNo" />
+            </Principal>
+            <Dependent Role="SozelEtutSalonu">
+              <PropertyRef Name="EtutSalonuSalonNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BilisimEtutSalonu">
+          <Key>
+            <PropertyRef Name="BilSalonNo" />
+          </Key>
+          <Property Name="BilSalonNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tarih" Type="Int32" Nullable="false" />
+          <Property Name="Saat" Type="Int32" Nullable="false" />
+          <Property Name="SalonNo" Type="String" Nullable="false" />
+          <NavigationProperty Name="EtutSalonu" Relationship="Model1.EtutSalonuBilisimEtutSalonu" FromRole="BilisimEtutSalonu" ToRole="EtutSalonu" />
+          <Property Name="EtutSalonuSalonNo" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="EtutSalonuBilisimEtutSalonu">
+          <End Type="Model1.EtutSalonu" Role="EtutSalonu" Multiplicity="1" />
+          <End Type="Model1.BilisimEtutSalonu" Role="BilisimEtutSalonu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EtutSalonu">
+              <PropertyRef Name="SalonNo" />
+            </Principal>
+            <Dependent Role="BilisimEtutSalonu">
+              <PropertyRef Name="EtutSalonuSalonNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="KullanicilarSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Kullanicilar)">
+        <MappingFragment StoreEntitySet="KullanicilarSet">
+          <ScalarProperty Name="KullaniciNo" ColumnName="KullaniciNo" />
+          <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+          <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+          <ScalarProperty Name="Mail" ColumnName="Mail" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+          <ScalarProperty Name="Adres" ColumnName="Adres" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EtutSalonuSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.EtutSalonu)">
+        <MappingFragment StoreEntitySet="EtutSalonuSet">
+          <ScalarProperty Name="SalonNo" ColumnName="SalonNo" />
+          <ScalarProperty Name="SalonAdi" ColumnName="SalonAdi" />
+          <ScalarProperty Name="KullaniciNo" ColumnName="KullaniciNo" />
+          <ScalarProperty Name="KullanicilarKullaniciNo" ColumnName="KullanicilarKullaniciNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SayisalEtutSalonuSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.SayisalEtutSalonu)">
+        <MappingFragment StoreEntitySet="SayisalEtutSalonuSet">
+          <ScalarProperty Name="SaySalonNo" ColumnName="SaySalonNo" />
+          <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+          <ScalarProperty Name="Saat" ColumnName="Saat" />
+          <ScalarProperty Name="SalonNo" ColumnName="SalonNo" />
+          <ScalarProperty Name="EtutSalonuSalonNo" ColumnName="EtutSalonuSalonNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SozelEtutSalonuSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.SozelEtutSalonu)">
+        <MappingFragment StoreEntitySet="SozelEtutSalonuSet">
+          <ScalarProperty Name="SozSalonNo" ColumnName="SozSalonNo" />
+          <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+          <ScalarProperty Name="Saat" ColumnName="Saat" />
+          <ScalarProperty Name="SalonNo" ColumnName="SalonNo" />
+          <ScalarProperty Name="EtutSalonuSalonNo" ColumnName="EtutSalonuSalonNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BilisimEtutSalonuSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.BilisimEtutSalonu)">
+        <MappingFragment StoreEntitySet="BilisimEtutSalonuSet">
+          <ScalarProperty Name="BilSalonNo" ColumnName="BilSalonNo" />
+          <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+          <ScalarProperty Name="Saat" ColumnName="Saat" />
+          <ScalarProperty Name="SalonNo" ColumnName="SalonNo" />
+          <ScalarProperty Name="EtutSalonuSalonNo" ColumnName="EtutSalonuSalonNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
